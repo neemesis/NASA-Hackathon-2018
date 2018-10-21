@@ -127,6 +127,8 @@ $(document).ready(function () {
         if (source) {
             clearMap();
             addLayer(dict[source]);
+            addLayer(dict["roads"], "roads" + Math.random());
+            addLayer(dict["labels"], "labels" + Math.random());
         }
     });
 
@@ -204,6 +206,7 @@ $(document).ready(function () {
         messenger.recieve("Hello there!");
     }, 500);
 
+    /*
     setTimeout(() => {
         messenger.recieve("Do you like this? If so check out more on my page...");
     }, 1000);
@@ -211,6 +214,7 @@ $(document).ready(function () {
     setTimeout(() => {
         messenger.recieve("Or maybe just give it a like!");
     }, 1500);
+    */
 
     $input.focus();
 

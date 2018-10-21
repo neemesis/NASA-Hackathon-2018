@@ -19,9 +19,9 @@ namespace HeatMaps.Hubs {
                     var model = Requester.Do(message, url);
                     await Clients.Caller.SendAsync("UpdateData", model.Type, model.FromDate, model.ToDate, model.City,
                         model.Lon, model.Lat);
-                    await Clients.Caller.SendAsync("ReceiveMessage", user, model.Msg, null);
+                    await Clients.Caller.SendAsync("ReceiveMessage", user, "All Done :)", null);
                 }
-                catch {
+                catch (Exception e) {
                     await Clients.Caller.SendAsync("ReceiveMessage", user, "Something weeeeent wrong :(", null);
                 }
             }

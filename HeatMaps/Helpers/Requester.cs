@@ -9,11 +9,11 @@ using Newtonsoft.Json;
 namespace HeatMaps.Helpers {
     public static class Requester {
         private static Dictionary<string, KeyValuePair<double, double>> predef = new Dictionary<string, KeyValuePair<double, double>> {
-            {"madrid", new KeyValuePair<double, double>(75,40) },
-            {"london", new KeyValuePair<double, double>(78,44) },
-            {"new york", new KeyValuePair<double, double>(75,-48) },
-            {"pretoria", new KeyValuePair<double, double>(33,78) },
-            {"berlin", new KeyValuePair<double, double>(79,61) },
+            {"madrid", new KeyValuePair<double, double>(40,75) },
+            {"london", new KeyValuePair<double, double>(44,78) },
+            {"new york", new KeyValuePair<double, double>(-48,75) },
+            {"pretoria", new KeyValuePair<double, double>(78,33) },
+            {"berlin", new KeyValuePair<double, double>(61,79) },
         };
 
     public static Model Do(string input, string url) {
@@ -26,7 +26,9 @@ namespace HeatMaps.Helpers {
                 client.BaseAddress = new Uri(url);
                 var response = client.GetAsync($"?query={System.Web.HttpUtility.HtmlEncode(input)}").Result;
                 response.EnsureSuccessStatusCode();
-                var bm = JsonConvert.DeserializeObject<BotModel>(response.Content.ReadAsStringAsync().Result);
+                var strRespo = response.Content.ReadAsStringAsync().Result;
+                var bm = JsonConvert.DeserializeObject<BotModel>(strRespo);
+
 
                 var pm = predef.SingleOrDefault(x => x.Key == bm.location.name.ToLower());
 
